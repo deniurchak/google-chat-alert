@@ -1,0 +1,29 @@
+{
+    "displayName": "Error Alert",
+    "documentation": {
+      "content": "<b>Severity:</b> ${log.extracted_label.severity}\n<b>Message:</b> ${log.extracted_label.logPayload}",
+      "mimeType": "text/markdown"
+    },
+    "userLabels": {},
+    "conditions": [
+      {
+        "displayName": "Matched error in test and live",
+        "conditionMatchedLog": {
+          "filter": "severity>=ERROR",
+          "labelExtractors": {
+            "logPayload": "EXTRACT(textPayload)",
+            "severity": "EXTRACT(severity)"
+          }
+        }
+      }
+    ],
+    "alertStrategy": {
+      "notificationRateLimit": {
+        "period": "300s"
+      },
+      "autoClose": "1800s"
+    },
+    "combiner": "OR",
+    "enabled": true,
+    "notificationChannels": []
+  }
